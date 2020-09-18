@@ -1,0 +1,27 @@
+name: send-trigger
+
+on:
+  workflow_dispatch:
+    # inputs:
+    #   ref:
+    #     required: true
+    #     description: the ref to deploy
+
+env:
+  ACTIONS_STEP_DEBUG: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          repository: andycmaj/actions-isolation-product
+          ref: ${{ github.event.ref }}
+
+      - name: deploy
+        run: |
+          yarn
+          node index.js
