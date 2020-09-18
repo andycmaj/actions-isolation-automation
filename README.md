@@ -43,6 +43,6 @@ curl \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: token ${{ secrets.DISPATCH_TOKEN }}" \
-    https://api.github.com/repos/andycmaj/actions-isolation-automation/actions/workflows/${ WORKFLOW_ID }/dispatches \
-    -d '{"ref":"${ GITHUB_REF }"}'
+    https://api.github.com/repos/andycmaj/actions-isolation-automation/actions/workflows/$WORKFLOW_ID/dispatches \
+    -d '{"inputs":{"ref":"${GITHUB_REF}"}}'
 ```
