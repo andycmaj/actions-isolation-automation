@@ -1,10 +1,13 @@
 name: send-trigger
 
 on:
+  # Trigger on push as well for testing purposes
   push:
     branches:
       - dev
   workflow_dispatch:
+    # any additional params can be passed with the trigger POST via `inputs` param
+    # https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
     # inputs:
     #   ref:
     #     required: true
