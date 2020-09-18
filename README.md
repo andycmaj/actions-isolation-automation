@@ -50,3 +50,20 @@ inner "inputs.ref" is the ref on THIS repo to check out
     https://api.github.com/repos/andycmaj/actions-isolation-automation/actions/workflows/$WORKFLOW_ID/dispatches \
     -d '{"ref":"dev","inputs":{"ref":"${GITHUB_REF}"}}'
 ```
+
+## Missing piece
+
+the one piece of this that's still insecure is that the product repo needs an access token with full `repo` scope to trigger dispatches in 
+the automation repo.
+
+and according to [ github docs ](https://docs.github.com/en/developers/apps/scopes-for-oauth-apps#available-scopes), `repo` scope is basically ALL THE THINGS
+
+> Grants full access to private and public repositories. That includes read/write access to code, commit statuses, repository and organization projects, invitations, collaborators, adding team memberships, deployment statuses, and repository webhooks for public and private repositories and organizations. Also grants ability to manage user projects.
+
+so for this to be 100% secure, you'd have to move the triggering call and 
+access token into a really simple (free) netlify or vercel function. (would take 2 seconds to implement).
+
+otherwise, someone with access to the send-trigger workflow yaml could 
+still change that script to make malicious github API calls using the
+`repo` scope. it's possible to lock down the github secrets UI, but they
+could still modify yaml that has access to the secrets.
