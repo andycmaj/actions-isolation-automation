@@ -38,6 +38,10 @@ curl \
 
 ## trigger the workflow from another repo
 
+outer "ref" is the ref on the automation branch to run the workflow from
+
+inner "inputs.ref" is the ref on THIS repo to check out 
+
 ```bash
   curl \
     -X POST \
